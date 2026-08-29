@@ -4,9 +4,40 @@
 >
 > **本地 AI 智能体监控面板** —— 用一个轻量、易部署的 Web 界面统一查看服务状态、代理调用、首词延迟、Token、账号池与错误。
 
-[English](#english) · [中文](#中文)
+[English](#english) · [中文](#中文) · [Screenshots](#screenshots--截图)
 
-<a id="english"></a>
+<a id="screenshots--截图"></a>
+## Screenshots / 页面截图
+
+![FleetView live monitoring dashboard](docs/screenshots/fleetview-live-monitor.png)
+
+The screenshot shows the **Live Monitoring** view: a compact navigation rail, real-time throughput cards, service availability, and a request stream with model, provider, TTFT, total latency, token count, and result status.
+
+截图展示的是**实时监控**页面：左侧紧凑导航栏、实时吞吐指标、服务在线状态，以及包含模型、供应商、首词延迟、总耗时、Token 数量和结果状态的调用流。
+
+### Design overview / 页面设计说明
+
+FleetView uses a restrained Apple-inspired operations-dashboard aesthetic rather than a decorative admin template:
+
+- **Visual hierarchy** — the page title and live status are immediately visible; detailed request data stays in a dense but scannable table-like stream.
+- **Compact navigation rail** — icon-first navigation keeps the monitoring workspace wide, while hover labels make every destination discoverable.
+- **Glass and card surfaces** — translucent rail styling, soft borders, restrained shadows, and rounded cards separate controls from data without visual noise.
+- **Live status language** — static status dots, clear labels, and success/error tags communicate state without distracting pulse animations.
+- **Information density** — throughput, TTFT, token volume, service health, and recent calls are grouped into quick-glance modules for operators.
+- **Dark/light themes** — CSS variables drive both themes consistently; the preference is saved locally in the browser.
+- **Local-first interaction** — the dashboard is designed for a localhost control room, with readable states and explicit operational controls.
+
+FleetView 采用克制的 Apple 风格运营面板设计，而不是堆砌装饰的后台模板：
+
+- **视觉层级清晰**：标题和实时状态优先呈现，详细调用信息以紧凑、易扫描的流式列表展示。
+- **紧凑导航栏**：默认只显示图标，保留更大的工作区；鼠标悬浮时显示文字提示，保证可发现性。
+- **玻璃与卡片层次**：半透明侧栏、柔和边框、克制阴影和圆角卡片，让控件与数据自然分层。
+- **状态表达直接**：使用静态状态点、明确文案和成功/失败标签，不用干扰注意力的呼吸灯动画。
+- **高信息密度**：吞吐、首词延迟、Token、服务健康和最近调用集中在几个快速浏览模块中。
+- **深色/浅色双主题**：通过 CSS 变量统一驱动，主题偏好保存在浏览器本地。
+- **本地优先交互**：面向 localhost 控制台设计，状态明确，运维控制入口显式可见。
+
+
 ## English
 
 FleetView is a self-hosted monitoring dashboard for developers and operators running local AI gateways, coding agents, model relays, and supporting services.
