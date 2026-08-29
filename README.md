@@ -9,11 +9,15 @@
 <a id="screenshots--截图"></a>
 ## Screenshots / 页面截图
 
-![FleetView overview dashboard](docs/screenshots/fleetview-overview.png)
+<p align="center">
+  <img src="docs/screenshots/fleetview-01.png" alt="FleetView screenshot 1" width="32%">
+  <img src="docs/screenshots/fleetview-02.png" alt="FleetView screenshot 2" width="32%">
+  <img src="docs/screenshots/fleetview-03.png" alt="FleetView screenshot 3" width="32%">
+</p>
 
-The screenshot shows the **Overview** view at desktop width: the complete FleetView shell, compact navigation rail, time-range controls, operational actions, call/latency summary, trend visualization, service availability, and provider status cards.
+The screenshots show FleetView at desktop width across the main monitoring views: the complete FleetView shell, compact navigation rail, real-time call stream, analytics, latency and token summaries, service availability, and provider status cards.
 
-截图展示的是桌面宽屏下的**总览**页面：完整 FleetView 外壳、紧凑左侧导航栏、时间范围控制、运维操作按钮、调用/延迟摘要、趋势图、服务在线状态和供应商状态卡片。
+截图展示的是桌面宽屏下的 FleetView 主要监控页面：完整外壳、紧凑左侧导航栏、实时调用流、调用分析、延迟与 Token 摘要、服务在线状态和供应商状态卡片。
 
 ### Design overview / 页面设计说明
 
