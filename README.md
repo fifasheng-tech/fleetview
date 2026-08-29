@@ -131,3 +131,8 @@ MIT，详见 [LICENSE](LICENSE)。欢迎提交 Issue 和 Pull Request，请尽�
 ## Contributing / 参与贡献
 
 Issues and pull requests are welcome. Please explain the problem, reproduction steps, environment, and the smallest useful change. 欢迎大家一起改进这个项目。
+
+## Contributors / 贡献者
+
+- **chunshinglee** — Project owner and maintainer
+- **Claude** — AI development collaborator
