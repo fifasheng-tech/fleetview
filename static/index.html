@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FleetView · 本地智能体监控</title>
+<link rel="stylesheet" href="/static/app.css?v=20260829-sidebar-fix">
+<link rel="stylesheet" href="/static/components.css?v=20260829">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%23f5333f'/><circle cx='16' cy='16' r='5' fill='white'/></svg>">
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2.2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2.2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2.2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2.2"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.2l2.4-6.4 4.8 12.8 2.4-6.4H21"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="3.4" width="18.4" height="7" rx="2.4"/><rect x="2.8" y="13.6" width="18.4" height="7" rx="2.4"/><path d="M6.6 6.9h.01M6.6 17.1h.01"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.4 2.7 5.4 5.8 5.4 8.9A5.4 5.4 0 0 1 12 21a5.4 5.4 0 0 1-5.4-5.4c0-1.7.7-3.2 1.8-4.4.1 1.8 1 2.7 1.9 2.7 1.4 0 1.9-1.6 1.7-3.6-.1-1.9.1-4.6 0-7.3Z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><rect x="5.2" y="10.6" width="3.6" height="6.4" rx="1.4"/><rect x="10.2" y="6.4" width="3.6" height="10.6" rx="1.4"/><rect x="15.2" y="13" width="3.6" height="4" rx="1.4"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 2.6 5.4 13.2h5.4l-.6 8.2 7.4-10.6h-5.4l.6-8.2Z"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 20.6 7.4v9.2L12 21.2 3.4 16.6V7.4L12 2.8Z"/><path d="M3.4 7.4 12 12l8.6-4.6M12 12v9.2"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.2" cy="8.2" r="4.4"/><path d="m11.4 11.4 8.4 8.4M16.8 16.8l2.2-2.2M14.2 14.2l2.2-2.2"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.6 20.8 19H3.2L12 3.6Z"/><path d="M12 9.8v4M12 16.4h.01"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.4 6.2h12.2M8.4 12h12.2M8.4 17.8h12.2"/><path d="M3.9 6.2h.01M3.9 12h.01M3.9 17.8h.01"/></symbol>
+  <symbol id="i-cog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.1"/><path d="M12 2.6v2.6M12 18.8v2.6M21.4 12h-2.6M5.2 12H2.6M18.6 5.4l-1.8 1.8M7.2 16.8l-1.8 1.8M18.6 18.6l-1.8-1.8M7.2 7.2 5.4 5.4"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 12a8.4 8.4 0 1 1-2.5-6"/><path d="M20.4 4.2v5.2h-5.2"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.4 5.6c0-.9 1-1.4 1.7-.9l8.1 5.4c.7.4.7 1.4 0 1.8l-8.1 5.4c-.7.5-1.7 0-1.7-.9V5.6Z"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6.4" y="6.4" width="11.2" height="11.2" rx="2.6"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.4 5.4v13.2M14.6 5.4v13.2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4.6 12.4 5 5L19.4 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.4 6.4 17.6 17.6M17.6 6.4 6.4 17.6"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 6.4h17.2M6.8 12h10.4M10.2 17.6h3.6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.2 1.9"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6.4" y="6.4" width="11.2" height="11.2" rx="2.6"/><path d="M10 2.9v3.5M14 2.9v3.5M10 17.6v3.5M14 17.6v3.5M2.9 10h3.5M2.9 14h3.5M17.6 10h3.5M17.6 14h3.5"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.9 9.2a15 15 0 0 1 18.2 0M6.4 12.8a10 10 0 0 1 11.2 0M9.9 16.4a5 5 0 0 1 4.2 0"/><path d="M12 19.8h.01"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7.6" ry="3.2"/><path d="M4.4 6v12c0 1.8 3.4 3.2 7.6 3.2s7.6-1.4 7.6-3.2V6"/><path d="M4.4 12c0 1.8 3.4 3.2 7.6 3.2s7.6-1.4 7.6-3.2"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="4" width="18.4" height="16" rx="3"/><path d="m7.4 9.6 2.8 2.4-2.8 2.4M12.8 15h4"/></symbol>
+  <symbol id="i-bolt-c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="m12.6 7.6-3 5h2.8l-.4 3.8 3-5h-2.8l.4-3.8Z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.4M12 19v2.4M21.4 12H19M5 12H2.6M18.7 5.3l-1.7 1.7M7 17l-1.7 1.7M18.7 18.7 17 17M7 7 5.3 5.3"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6a8.6 8.6 0 1 0 10.6 10.6Z"/></symbol>
+  <symbol id="i-adjust" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.7"/><path d="M12 3.3v17.4M12 3.3a8.7 8.7 0 0 1 0 17.4" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h6M14 7h6M4 17h2M10 17h10"/><circle cx="12" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></symbol>
+</svg>
+
+<div class="app">
+  <nav class="rail">
+    <div class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17.5 9.5 12 14 15.5 20 7"/><circle cx="20" cy="7" r="1.9" fill="currentColor" stroke="none"/></svg></div>
+    <div class="rail-nav" id="nav"></div>
+  </nav>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="wordmark">FLEET<b>VIEW</b> <span class="arrow">→|</span></div>
+
+      <div class="pod">
+        <div class="ic" style="color:var(--green)"><svg><use href="#i-server"/></svg></div>
+        <div><div class="k">在线服务</div><div class="v" id="podServices">—</div></div>
+      </div>
+
+      <div class="pod">
+        <div class="ic" style="color:var(--blue)"><svg><use href="#i-pulse"/></svg></div>
+        <div><div class="k">调用 · <span id="podRangeLabel">24H</span></div><div class="v" id="podCalls">—</div></div>
+      </div>
+
+      <div class="pod">
+        <div class="ic" style="color:var(--red)"><svg><use href="#i-zap"/></svg></div>
+        <div><div class="k">首词中位</div><div class="v" id="podTtft">—</div></div>
+      </div>
+
+      <div class="top-right">
+        <div class="risk">
+          <span class="up-arrow">↗</span>
+          <div class="k">服务健康</div>
+          <div class="v"><span class="ring" id="healthRing"></span><span id="healthText">检测中</span></div>
+        </div>
+        <div class="risk" style="min-width:104px">
+          <div class="k">最近检查</div>
+          <div class="v mono" id="lastCheck">—</div>
+        </div>
+        <button class="theme-btn" id="themeBtn" title="切换深色 / 浅色">
+          <svg class="t-adjust"><use href="#i-adjust"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="scroll" id="view"></div>
+  </div>
+</div>
+
+<div class="tooltip" id="tip"></div>
+<div class="toast" id="toast"></div>
+<div class="sheet-bg" id="sheetBg"><div class="sheet" id="sheet"></div></div>
+
+<script src="/static/charts.js"></script>
+<script src="/static/app.js"></script>
+<script src="/static/views-main.js"></script>
+<script src="/static/views-calls.js"></script>
+<script src="/static/views-live.js"></script>
+<script src="/static/views-health.js"></script>
+<script src="/static/views-agents.js"></script>
+<script src="/static/views-logs.js"></script>
+</body>
+</html>
