@@ -9,11 +9,11 @@
 <a id="screenshots--截图"></a>
 ## Screenshots / 页面截图
 
-![FleetView live monitoring dashboard](docs/screenshots/fleetview-live-monitor.png)
+![FleetView overview dashboard](docs/screenshots/fleetview-overview.png)
 
-The screenshot shows the **Live Monitoring** view: a compact navigation rail, real-time throughput cards, service availability, and a request stream with model, provider, TTFT, total latency, token count, and result status.
+The screenshot shows the **Overview** view at desktop width: the complete FleetView shell, compact navigation rail, time-range controls, operational actions, call/latency summary, trend visualization, service availability, and provider status cards.
 
-截图展示的是**实时监控**页面：左侧紧凑导航栏、实时吞吐指标、服务在线状态，以及包含模型、供应商、首词延迟、总耗时、Token 数量和结果状态的调用流。
+截图展示的是桌面宽屏下的**总览**页面：完整 FleetView 外壳、紧凑左侧导航栏、时间范围控制、运维操作按钮、调用/延迟摘要、趋势图、服务在线状态和供应商状态卡片。
 
 ### Design overview / 页面设计说明
 
