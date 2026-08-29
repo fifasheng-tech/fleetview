@@ -1,0 +1,6 @@
+{
+  "poll_interval": 30,
+  "port": 8790,
+  "alert_after_failures": 3,
+  "services": []
+}
