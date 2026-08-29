@@ -1,0 +1,19 @@
+# Local runtime files
+fleet.log
+fleet.pid
+config.json
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local databases and logs
+*.sqlite
+*.sqlite3
+*.db
+*.log
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/
